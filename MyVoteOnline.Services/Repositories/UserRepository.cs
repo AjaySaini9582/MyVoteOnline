@@ -14,7 +14,7 @@ namespace MyVoteOnline.Services.Repositories
 	{
 		private readonly VoteContext _context = context;
 
-		public  int AddUser(UserModel user)
+		public async Task<int> AddUser(UserModel user)
 		{
 			int userId = 0;
 			using (var transaction = _context.Database.BeginTransaction())
@@ -33,14 +33,14 @@ namespace MyVoteOnline.Services.Repositories
 					};
 					_context.Users.Add(user1);
 					_context.Entry(user1).State = EntityState.Added;
-					_context.SaveChanges();
+					await _context.SaveChangesAsync(); 
 					userId = user1.UserId;
-					transaction.Commit();
+					await transaction.CommitAsync();
 				}
-				catch(Exception ex)
+				catch
 				{
-					userId = 0;
-					transaction.RollbackAsync();
+					await transaction.RollbackAsync(); // Non-blocking
+					throw;
 				}
 			}
 			return userId;
