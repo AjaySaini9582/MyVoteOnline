@@ -12,9 +12,9 @@ namespace MyVoteOnline.Api.Controllers
 		private readonly IUserRepository _userRepository = userRepository;
 
 		[HttpPost]
-		public IActionResult Post(UserModel user)
+		public async Task<IActionResult> Post(UserModel user)
 		{
-			var result = _userRepository.AddUser(user);
+			var result =await _userRepository.AddUser(user);
 			return Ok(new { Status = "success", Result = result });
 		}
 	}
