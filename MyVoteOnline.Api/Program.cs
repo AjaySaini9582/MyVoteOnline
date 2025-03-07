@@ -1,6 +1,13 @@
+using Microsoft.EntityFrameworkCore;
+using MyVoteOnline.Services.Interfaces;
+using MyVoteOnline.Services.Repositories;
+using MyVotOnline.DataBaseLayer.DataContext;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddDbContext<VoteContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
