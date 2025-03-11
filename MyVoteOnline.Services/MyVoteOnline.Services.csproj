@@ -11,4 +11,8 @@
     <ProjectReference Include="..\MyVotOnline.Model\MyVotOnline.Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Utilty\" />
+  </ItemGroup>
+
 </Project>
