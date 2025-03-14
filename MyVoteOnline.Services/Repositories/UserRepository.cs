@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyVoteOnline.Services.Interfaces;
+using MyVoteOnline.Services.Utilty;
 using MyVotOnline.DataBaseLayer.DataContext;
 using MyVotOnline.Model;
 
@@ -17,19 +18,28 @@ namespace MyVoteOnline.Services.Repositories
 
 				try
 				{
-					User user1 = new User
+					var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == user.Email);
+					if (existingUser != null)
+					{
+						throw new Exception("Email is already Registered");
+					}
+					if (string.IsNullOrEmpty(user.PasswordHash))
+					{
+						throw new ArgumentNullException("Password cannot be Empty");
+					}
+					User newUser = new User
 					{
 						FullName = user.FullName,
 						Email = user.Email,
-						PasswordHash = user.PasswordHash,
+						PasswordHash = PasswordHelper.HashPassword(user.PasswordHash),
 						RoleId = user.RoleId,
 						MobileNo = user.MobileNo,
 						CreatedAt = DateTime.UtcNow
 					};
-					_context.Users.Add(user1);
-					_context.Entry(user1).State = EntityState.Added;
+					_context.Users.Add(newUser);
+					_context.Entry(newUser).State = EntityState.Added;
 					await _context.SaveChangesAsync();
-					userId = user1.UserId;
+					userId = newUser.UserId;
 					await transaction.CommitAsync();
 				}
 				catch

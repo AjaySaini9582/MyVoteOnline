@@ -14,8 +14,17 @@ namespace MyVoteOnline.Api.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Post(UserModel user)
 		{
-			var result =await _userRepository.AddUser(user);
-			return Ok(new { Status = "success", Result = result });
+			try
+			{
+				var result = await _userRepository.AddUser(user);
+				return Ok(new { Status = "success", Result = result });
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(StatusCodes.Status500InternalServerError, new { Status = "Error", Message = ex.Message });
+
+			}
+			}
 		}
 	}
-}
+
