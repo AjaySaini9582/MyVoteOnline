@@ -5,27 +5,19 @@ namespace MyVotOnline.DataBaseLayer.DataContext;
 
 public partial class User
 {
-    public int UserId { get; set; }
+    public int Id { get; set; }
 
-    public string? FullName { get; set; }
+    public string Fullname { get; set; } = null!;
 
-    public string? Email { get; set; }
+    public string Email { get; set; } = null!;
 
-    public string? PasswordHash { get; set; }
+    public string Passwordhash { get; set; } = null!;
 
-    public string? ConfirmPassword { get; set; }
+    public long Mobileno { get; set; }
 
-    public string? MobileNo { get; set; }
+    public int? Roleid { get; set; }
 
-    public int? RoleId { get; set; }
-
-    public DateTime? CreatedAt { get; set; }
-
-    public virtual ICollection<CandidatePost> CandidatePosts { get; set; } = new List<CandidatePost>();
-
-    public virtual ICollection<CandidateStaff> CandidateStaffs { get; set; } = new List<CandidateStaff>();
-
-    public virtual ICollection<Candidate> Candidates { get; set; } = new List<Candidate>();
+    public DateTime? Createdat { get; set; }
 
     public virtual Role? Role { get; set; }
 }

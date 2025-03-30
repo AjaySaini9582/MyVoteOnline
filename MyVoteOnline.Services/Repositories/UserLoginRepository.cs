@@ -6,17 +6,17 @@ using MyVotOnline.Model;
 
 namespace MyVoteOnline.Services.Repositories
 {
-	public class UserLoginRepository (VoteContext context): ILoginRepository
+	public class UserLoginRepository(VoteContext context) : ILoginRepository
 	{
 		private readonly VoteContext _context = context;
 
 		public async Task<bool> LoginUser(LoginRequests requests)
 		{
-			bool verifypasswords=false;
+			bool verifypasswords = false;
 			var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == requests.Email);
-			if (user != null&&user.PasswordHash!=null)
+			if (user != null && user.Passwordhash != null)
 			{
-				verifypasswords= PasswordHelper.VerifyPassword(requests.Password, user.PasswordHash);
+				verifypasswords = PasswordHelper.VerifyPassword(requests.Password, user.Passwordhash);
 			}
 			return verifypasswords;
 		}

@@ -4,6 +4,6 @@ namespace MyVoteOnline.Services.Interfaces
 {
 	public interface IUserRepository
 	{
-		Task<int> AddUser(UserModel user);
+	 public	Task<int> AddUser(UserModel user);
 	}
 }
