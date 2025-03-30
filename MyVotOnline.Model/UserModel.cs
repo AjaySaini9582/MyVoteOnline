@@ -2,20 +2,19 @@
 {
 	public class UserModel
 	{
-		public int UserId { get; set; }
+		public int Id { get; set; }
 
-		public string? FullName { get; set; }
+		public string Fullname { get; set; } = null!;
 
-		public string? Email { get; set; }
+		public string Email { get; set; } = null!;
 
-		public string? PasswordHash { get; set; }
+		public string Passwordhash { get; set; } = null!;
 
-		public string? ConfirmPassword { get; set; }
+		public long Mobileno { get; set; }
 
-		public string? MobileNo { get; set; }
+		public int? Roleid { get; set; }
 
-		public int? RoleId { get; set; }
-		public DateTime? CreatedAt { get; set; }
+		public DateTime? Createdat { get; set; }
 
 	}
 }

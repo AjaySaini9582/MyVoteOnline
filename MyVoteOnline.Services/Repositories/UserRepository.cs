@@ -23,23 +23,22 @@ namespace MyVoteOnline.Services.Repositories
 					{
 						throw new Exception("Email is already Registered");
 					}
-					if (string.IsNullOrEmpty(user.PasswordHash))
+					if (string.IsNullOrEmpty(user.Passwordhash))
 					{
 						throw new ArgumentNullException("Password cannot be Empty");
 					}
 					User newUser = new User
 					{
-						FullName = user.FullName,
+						Fullname = user.Fullname,
 						Email = user.Email,
-						PasswordHash = PasswordHelper.HashPassword(user.PasswordHash),
-						RoleId = user.RoleId,
-						MobileNo = user.MobileNo,
-						CreatedAt = DateTime.UtcNow
+						Passwordhash = PasswordHelper.HashPassword(user.Passwordhash),
+						Roleid = user.Roleid,
+						Mobileno = user.Mobileno
 					};
 					_context.Users.Add(newUser);
 					_context.Entry(newUser).State = EntityState.Added;
 					await _context.SaveChangesAsync();
-					userId = newUser.UserId;
+					userId = newUser.Id;
 					await transaction.CommitAsync();
 				}
 				catch
